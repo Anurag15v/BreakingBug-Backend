@@ -2,6 +2,9 @@
 
 <img src="https://images.prismic.io/ieeemuj/Zqu58B5LeNNTxuyE_BreakingBugBanner.png?auto=format,compress" alt="Breaking Bug Poster">
 
+## Error Document
+https://docs.google.com/spreadsheets/d/1a9R8GqPTlDVfdR8xZyX94alQGOx2cmJHgrgF082rXL8/edit?gid=0#gid=0
+
 ## Table of Content
 - [Introduction](#introduction)
 - [Pre-requisites](#pre-requisites)
@@ -238,3 +241,5 @@ To set up the database schema, follow these steps:
 <br>
 <img src="https://images.prismic.io/ieeemuj/Zqu58B5LeNNTxuyF_cs-logo.png?auto=format,compress" alt="IEEE CS MUJ Logo">
 <br>
+
+
