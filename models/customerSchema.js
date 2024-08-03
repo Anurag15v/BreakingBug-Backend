@@ -24,8 +24,11 @@ const customerSchema = mongoose.Schema({
             type: String
         },
         price: {
-            mrp: {
-                type: String
+            // mrp: {
+                // type: String // wrong type
+            // },
+            mrp:{
+                type: Number // Correct type is Number
             },
             cost: {
                 type: Number
@@ -54,8 +57,9 @@ const customerSchema = mongoose.Schema({
         },
         seller: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'SELLER'
-        },
+            // ref: 'SELLER' // Incorrect: Model references should use the exact model name, typically capitalized
+            ref:'seller' // Correct: Using the correct and capitalized model name for reference
+        }, 
     }],
     shippingData: {
         address: {
@@ -67,8 +71,11 @@ const customerSchema = mongoose.Schema({
         state: {
             type: String,
         },
-        country: {
-            type: Number,
+        // country: {
+        //     type: Number, // Correct type is Number
+        // },
+        country:{
+            type: String // Correct type is String
         },
         pinCode: {
             type: Number,
@@ -79,4 +86,5 @@ const customerSchema = mongoose.Schema({
     }
 });
 
-module.exports = mongoose.model("customer", customerSchema)
+// module.exports = mongoose.model("customer", customerSchema) // Incorrect: The model name should be capitalized to follow the naming convention
+module.exports = mongoose.model("Customer", customerSchema) // Correct: Model names are typically capitalized

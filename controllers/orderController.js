@@ -35,15 +35,18 @@ const getOrderedProductsByCustomer = async (req, res) => {
     try {
         let orders = await Order.find({ buyer: req.params.id });
 
-        
-        const orderedProducts = orders.reduce((accumulator, order) => {
+        // const orderedProducts = orders.reduce((accumulator, order) => {
             
-            return accumulator.filter(product => {
-                accumulator.push(...order.orderedProducts);
-                return true; 
-            });
-        }, []);
+        //     return accumulator.filter(product => {
+        //         accumulator.push(...order.orderedProducts);
+        //         return true; 
+        //     });
+        // }, []);
         
+        const orderedProducts=orders.map(order=>{
+            return order.orderedProducts.map((eachOrder)=> eachOrder);
+        })
+
         if (orderedProducts.length > 0) {
             res.send(orderedProducts);
         } else {
@@ -59,8 +62,12 @@ const getOrderedProductsBySeller = async (req, res) => {
     try {
         const sellerId = req.params.id;
 
+        // const ordersWithSellerId = await Order.find({
+        //     'orderedProducts.sellerId': sellerId
+        // });
+
         const ordersWithSellerId = await Order.find({
-            'orderedProducts.sellerId': sellerId
+            'orderedProducts.seller': sellerId
         });
 
         if (ordersWithSellerId.length > 0) {

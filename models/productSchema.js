@@ -31,9 +31,13 @@ const productSchema =  mongoose.Schema(
         tagline: {
             type: String
         },
+        // quantity: {
+        //     type: Number,
+        //     default: 45 // Wrong default value 45 
+        // },
         quantity: {
             type: Number,
-            default: 45
+            default:1 // Correct default value is 1
         },
         reviews: [
             {
@@ -45,18 +49,22 @@ const productSchema =  mongoose.Schema(
                 },
                 reviewer: {
                     type: mongoose.Schema.Types.ObjectId,
-                    ref: "CUSTOMERS",
+                    // ref: "CUSTOMERS", // Incorrect: The reference should use the exact model name, which is typically capitalized
+                    ref:"customer" // Correct: Using the exact and capitalized model name for reference
                 },
                 date: {
                     type: Date,
-                    default: Text,
+                    // default: Text, Error -> Text not defined
+                    default: Date.now() // Default value is the current date/time 
                 },
             },
         ],
         seller: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'seller'
+            // ref: 'seller' // Incorrect: The reference should use the exact model name, which is typically capitalized
+            ref:'Seller' // Correct: Using the exact and capitalized model name for reference
         },
     }, { timestamps: false});
 
-module.exports = mongoose.mongoose("product", productSchema)
+// module.exports = mongoose.mongoose("product", productSchema) // Incorrect: mongoose.mongoose is not a valid function
+module.exports = mongoose.model("Product", productSchema) // Correct: mongoose.model is the correct function to create a model

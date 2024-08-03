@@ -20,14 +20,11 @@ const customerRegister = async (req, res) => {
         else {
             let result = await customer.save();
             result.password = undefined;
-            
             const token = createNewToken(result._id)
-
             result = {
-                ...result._doc,
+                ...result._doc, 
                 token: token
             };
-
             res.send(result);
         }
     } catch (err) {
@@ -38,9 +35,13 @@ const customerRegister = async (req, res) => {
 const customerLogIn = async (req, res) => {
     if (req.body.email && req.body.password) {
         let customer = await Customer.findOne({ email: req.body.email });
-        if (!customer) {
+        // if (!customer) 
+        if(customer) // If customer exist 
+        {
             const validated = await bcrypt.compare(req.body.password, customer.password);
-            if (!validated) {
+            // if (!validated)
+            if(validated) // If password is correct 
+            {
                 customer.password = undefined;
 
                 const token = createNewToken(customer._id)
@@ -64,9 +65,11 @@ const customerLogIn = async (req, res) => {
 
 const getCartDetail = async (req, res) => {
     try {
-        let customer = await Customer.findBy(req.params.id)
+        // let customer = await Customer.findBy(req.params.id) // No function findBy
+        let customer = await Customer.findById(req.params.id)  // findById is used to get doc
         if (customer) {
-            res.get(customer.cartDetails);
+            // res.get(customer.cartDetails); // no function get on response object
+            res.send(customer.cartDetails); // sending response
         }
         else {
             res.send({ message: "No customer found" });
@@ -81,8 +84,18 @@ const cartUpdate = async (req, res) => {
 
         let customer = await Customer.findByIdAndUpdate(req.params.id, req.body,
             { new: false })
-
-        return res.send(customer.cartDetails);
+        // return res.send(customer.cartDetails);
+        
+        // if customer exist 
+        if(customer)
+        {
+            // return response
+            return res.send(customer.cartDetails);
+        }
+        else
+        {
+            res.send({ message: "No customer found" });
+        }
 
     } catch (err) {
         res.status(500).json(err);

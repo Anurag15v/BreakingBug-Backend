@@ -1,10 +1,33 @@
 const router = require('express').Router();
-const authMiddleware = require('../middleware/authMiddleware.js');
+// const authMiddleware = require('../middleware/authMiddleware.js'); Unused code
 
+// Incorrect: The path is wrong. It should import from 'sellerController.js' instead of 'orderController.js'
+// const {
+//     sellerRegister,
+//     sellerLogIn
+// } = require('../controllers/orderController.js');
+
+// Correct: Correctly importing from 'sellerController.js'
 const {
     sellerRegister,
     sellerLogIn
-} = require('../controllers/orderController.js');
+} = require('../controllers/sellerController.js');
+
+// const {
+//     productCreate,
+//     getProducts,
+//     getProductDetail,
+//     searchProductbyCategory,
+//     getSellerProducts,
+//     updateProduct,
+//     deleteProduct,
+//     deleteProducts,
+//     deleteProductReview,
+//     deleteAllProductReviews,
+//     addReview,
+//     getInterestedCustomers,
+//     getAddedToCartProducts,
+// } = require('../controllers/productController.js');
 
 const {
     productCreate,
@@ -20,6 +43,8 @@ const {
     addReview,
     getInterestedCustomers,
     getAddedToCartProducts,
+    searchProductbySubCategory, // Imported
+    searchProduct // Imported
 } = require('../controllers/productController.js');
 
 const {
@@ -29,9 +54,15 @@ const {
     cartUpdate
 } = require('../controllers/customerController.js');
 
+// const {
+//     newOrder,
+//     getOrderedProductsBySeller,
+// } = require('../controllers/orderController.js');
+
 const {
     newOrder,
-    getOrderedProductsBySeller
+    getOrderedProductsBySeller,
+    getOrderedProductsByCustomer // Imported 
 } = require('../controllers/orderController.js');
 
 
@@ -50,9 +81,19 @@ router.get('/getAddedToCartProducts/:id', getAddedToCartProducts);
 router.put('/ProductUpdate/:id', updateProduct);
 router.put('/addReview/:id', addReview);
 
-router.get('/searchProduct/:key', searchProductbyCategory);
+// Incorrect: The handler function name should match the route purpose, i.e., searching for a product
+// router.get('/searchProduct/:key', searchProductbyCategory);
+
+// Correct: The handler function name 'searchProduct' matches the route purpose
+router.get('/searchProduct/:key', searchProduct);
+
 router.get('/searchProductbyCategory/:key', searchProductbyCategory);
-router.get('/searchProductbySubCategory/:key', searchProductbyCategory);
+
+// Incorrect: The handler function name should match the route purpose, i.e., searching products by subcategory
+// router.get('/searchProductbySubCategory/:key', searchProductbyCategory);
+
+// Correct: The handler function name 'searchProductbySubCategory' matches the route purpose
+router.get('/searchProductbySubCategory/:key', searchProductbySubCategory);
 
 router.delete('/DeleteProduct/:id', deleteProduct);
 router.delete('/DeleteProducts/:id', deleteProducts);
@@ -67,5 +108,13 @@ router.put('/CustomerUpdate/:id', cartUpdate);
 
 // Order
 router.post('/newOrder', newOrder);
-router.get('/getOrderedProductsByCustomer/:id', getOrderedProductsBySeller);
+
+// Incorrect: The handler function name should match the route purpose, i.e., getting ordered products by customer
+// router.get('/getOrderedProductsByCustomer/:id', getOrderedProductsBySeller);
+
+// Correct: The handler function name 'getOrderedProductsByCustomer' matches the route purpose
+router.get('/getOrderedProductsByCustomer/:id', getOrderedProductsByCustomer);
+
 router.get('/getOrderedProductsBySeller/:id', getOrderedProductsBySeller);
+
+module.exports=router; // Exported router object

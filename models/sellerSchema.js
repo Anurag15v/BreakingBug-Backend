@@ -16,7 +16,8 @@ const sellerSchema = new mongoose.Schema({
     },
     role: {
         type: String,
-        default: "seller"
+        // default: "seller" // Incorrect: Default values should match the correct capitalization or formatting
+        default:"Seller" // Correct: Using the correct capitalization for the default value
     },
     shopName: {
         type: String,
@@ -25,4 +26,8 @@ const sellerSchema = new mongoose.Schema({
     }
 });
 
-moduleexports = mongoose.model("seller", sellerSchema)
+// Incorrect: 'moduleexports' is not a valid syntax; it should be 'module.exports'
+// moduleexports = mongoose.model("seller", sellerSchema)
+
+// Correct: Using 'module.exports' and capitalizing the model name for consistency
+module.exports = mongoose.model("Seller", sellerSchema)

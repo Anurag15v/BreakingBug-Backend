@@ -26,7 +26,7 @@ const orderSchema = new mongoose.Schema(
             },
             pinCode: {
                 type: Number,
-                
+                required:true // required:true was missing
             },
             phoneNo: {
                 type: Number,
@@ -49,7 +49,8 @@ const orderSchema = new mongoose.Schema(
                 }
             },
             subcategory: {
-                type: mongoose.Schema.Types.ObjectId,
+                //type: mongoose.Schema.Types.ObjectId,
+                type:String
             },
             productImage: {
                 type: String
@@ -100,15 +101,20 @@ const orderSchema = new mongoose.Schema(
             required: true,
             default: 0,
         },
+        // totalPrice: {
+        //     type: Number,
+        //     required: true,
+        //     default: 20, // wrong default value
+        // },
         totalPrice: {
             type: Number,
             required: true,
-            default: 20,
+            default:0 // default value is 0
         },
         orderStatus: {
             type: String,
             required: true,
-            
+            default:'Processing' // default value was missing
         },
         deliveredAt: Date,
         createdAt: {
@@ -117,4 +123,6 @@ const orderSchema = new mongoose.Schema(
         },
     });
 
-module.exports = mongoose.model("customer", orderSchema);
+// module.exports = mongoose.model("customer", orderSchema); // Incorrect: The model name should match the schema purpose, i.e., it should be "Order" instead of "customer"
+
+module.exports = mongoose.model("Order", orderSchema); // Correct: The model name 'Order' matches the schema purpose
